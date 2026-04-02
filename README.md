@@ -8,11 +8,11 @@ Tiny project aiming at creating a CLI task tracker in Golang
 1. Keep track of tasks
 
 ## Roadmap
-1. Add  
-2. List all  
-3. Progress  
-4. Regress  
-5. List by  
+1. ~~Add~~
+2. ~~List all~~
+3. Progress
+4. Regress
+5. List by
 
 ## Features
 ### Add tasks
@@ -63,7 +63,7 @@ New task "Publish code" added to do @ id=4
 +---------------------------------------------------------------------+
 |id| Description  |   Status    |    Created       |    Updated       |
 |--|--------------|-------------|------------------|------------------|
-| 4| Publish code | doing       | 01-04-2026 09:13 | 01-04-2026 10:30 | 
+| 4| Publish code | todo        | 01-04-2026 09:13 | 01-04-2026 10:33 | 
 +---------------------------------------------------------------------+
 ```
 
