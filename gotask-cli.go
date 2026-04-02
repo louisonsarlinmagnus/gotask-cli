@@ -19,6 +19,7 @@ const (
 )
 
 const path string = "./tasks.json"
+const tempPath string = "./tasks.save"
 
 var statusName = map[Status]string{
 	todo:  "todo",
@@ -89,16 +90,33 @@ func printTasksAsATable(tasks []task) {
 }
 
 func addTask(desc string) {
-
 	newtask := task{
-		Id:          1,
+		Id:          uint(len(backlog)) + 1,
 		Description: desc,
 		Status:      0,
 		Created:     time.Now().Unix(),
 		Updated:     -1}
 
 	fmt.Printf("New task \"%s\" added to do @ id=%d", newtask.Description, newtask.Id)
+	backlog = append(backlog, newtask)
+}
 
+func saveBacklog() {
+	if _, err := os.Stat(tempPath); err == nil {
+		err = os.Remove(tempPath)
+	} else if errors.Is(err, os.ErrNotExist) {
+	} else {
+		check(err)
+		os.Exit(1)
+	}
+	f, err := os.Create(tempPath)
+	check(err)
+	defer f.Close()
+	backlogJSON, _ := json.MarshalIndent(backlog, "", "\t")
+	f.Write(backlogJSON)
+
+	err = os.Rename(tempPath, path)
+	check(err)
 }
 
 func main() {
@@ -113,13 +131,12 @@ func main() {
 			} else {
 				fmt.Println("Missing argument")
 			}
-
 		case "list":
 			printTasksAsATable(backlog)
 		default:
 			fmt.Println("NO !")
 		}
-		// saveBacklog()
+		saveBacklog()
 	} else {
 		fmt.Println("Missing argument")
 	}
