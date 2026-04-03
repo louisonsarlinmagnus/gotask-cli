@@ -39,6 +39,19 @@ func main() {
 				fmt.Println("Missing argument")
 				commands.Help()
 			}
+		case "regress":
+			if len(os.Args[1:]) == 2 {
+				id, err := strconv.ParseUint(os.Args[2], 10, 32)
+				utils.Check(err)
+				if id > 0 && id <= uint64(len(backlog)) {
+					commands.RegressTask(uint(id)-1, backlog)
+				} else {
+					fmt.Printf("No task found with id=%d, try list to get id", id)
+				}
+			} else {
+				fmt.Println("Missing argument")
+				commands.Help()
+			}
 		default:
 			fmt.Println("NO !")
 		}
