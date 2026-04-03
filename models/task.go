@@ -1,14 +1,14 @@
 package models
 
-type status int
+type Status int
 
 const (
-	todo status = iota
+	todo Status = iota
 	doing
 	done
 )
 
-var StatusName = map[status]string{
+var StatusName = map[Status]string{
 	todo:  "todo",
 	doing: "doing",
 	done:  "done",
@@ -17,7 +17,7 @@ var StatusName = map[status]string{
 type Task struct {
 	Id          uint
 	Description string
-	Status      status
+	Status      Status
 	Created     int64
 	Updated     int64
 }

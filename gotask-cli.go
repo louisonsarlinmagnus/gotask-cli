@@ -25,7 +25,20 @@ func main() {
 				commands.Help()
 			}
 		case "list":
-			commands.ListTasks(backlog)
+			switch len(os.Args[1:]) {
+			case 1:
+				commands.ListTasks(backlog)
+			case 2:
+				switch os.Args[2] {
+				case "todo", "doing", "done":
+					commands.ListTasksBy(os.Args[2], backlog)
+				default:
+					fmt.Printf("Unknown status %s", os.Args[2])
+				}
+
+			default:
+				fmt.Println("Too many arguments !")
+			}
 		case "progress":
 			if len(os.Args[1:]) == 2 {
 				id, err := strconv.ParseUint(os.Args[2], 10, 32)
