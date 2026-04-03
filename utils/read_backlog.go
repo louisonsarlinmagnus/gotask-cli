@@ -14,6 +14,7 @@ func InitBacklog(path string) []models.Task {
 		f, err := os.Create(path)
 		Check(err)
 		defer f.Close()
+		f.Write([]byte("[]"))
 
 	} else {
 		Check(err)
